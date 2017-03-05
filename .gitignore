@@ -1,0 +1,4 @@
+.envrc
+yarn.lock
+node_modules
+errorShots
