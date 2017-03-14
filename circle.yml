@@ -14,6 +14,8 @@ test:
     - ./ngrok http 3000:
         background: true
     - sleep 3
+    - curl http://www.google.com
+    - curl http://localhost:4040/api/tunnels
     - export HOST1=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url' | sed -e 's,http://,,')
     - echo $HOST1
     - ./ngrok http 3001:
