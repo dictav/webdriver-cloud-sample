@@ -7,8 +7,8 @@ dependencies:
     - curl -O https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
     - unzip ngrok-stable-linux-amd64.zip
     - chmod +x ngrok
-    - ngrok authtoken $NGROK_TOKEN
     - mv ngrok /home/ubuntu/bin
+    - ngrok authtoken $NGROK_TOKEN
     - curl -O http://stedolan.github.io/jq/download/linux64/jq
     - chmod +x jq
     - mv jq  /home/ubuntu/bin
