@@ -8,10 +8,10 @@ dependencies:
     - unzip ngrok-stable-linux-amd64.zip
     - chmod +x ngrok
     - ngrok authtoken $NGROK_TOKEN
-    - mv ngrok bin/
+    - mv ngrok /home/ubuntu/bin
     - curl -O http://stedolan.github.io/jq/download/linux64/jq
     - chmod +x jq
-    - mv jq bin/
+    - mv jq  /home/ubuntu/bin
     
 test:
   pre:
