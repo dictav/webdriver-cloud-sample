@@ -1,4 +1,6 @@
 machine:
+  environment:
+    hello: hello, world
   timezone: Asia/Tokyo
 dependencies:
   post:
@@ -18,7 +20,7 @@ test:
     - sleep 3
     - echo $HELLO:
         environment:
-          HELLO: hello, world
+          HELLO: hello
       #- echo $HELLO:
       #-   environment:
       #-     HELLO: curl http://localhost:4040/api/tunnels | ./jq -r '.tunnels[0].public_url' | sed -e 's,http://,,'
