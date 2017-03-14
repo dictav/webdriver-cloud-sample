@@ -17,31 +17,14 @@ test:
         background: true
     - ./ngrok http 3000:
         background: true
+    - ./ngrok http 3001:
+        background: true
+    - ./ngrok http 3030:
+        background: true
     - sleep 3
     - echo $HELLO:
         environment:
           HELLO: hello
-      #- echo $HELLO:
-      #-   environment:
-      #-     HELLO: curl http://localhost:4040/api/tunnels | ./jq -r '.tunnels[0].public_url' | sed -e 's,http://,,'
-    - #- echo $HELLO:
-      #-   environment:
-      #-     HELLO: `curl http://localhost:4040/api/tunnels | ./jq -r '.tunnels[0].public_url' | sed -e 's,http://,,'`
-    - #- echo $HELLO:
-      #-   environment:
-      #-     HELLO: $(curl http://localhost:4040/api/tunnels | ./jq -r '.tunnels[0].public_url' | sed -e 's,http://,,')
-    - export HOST1=`curl -s http://localhost:4040/api/tunnels | ./jq -r '.tunnels[0].public_url' | sed -e 's,http://,,'`
-    - echo $HOST1
-    - ./ngrok http 3001:
-        background: true
-    - sleep 3
-    - export HOST2=`curl -s http://localhost:4041/api/tunnels | ./jq -r '.tunnels[0].public_url' | sed -e 's,http://,,'`
-    - echo $HOST2
-    - ./ngrok http 3030:
-        background: true
-    - sleep 3
-    - export HOST_API=`curl -s http://localhost:4042/api/tunnels | ./jq -r '.tunnels[0].public_url' | sed -e 's,http://,,'`
-    - echo $HOST_API
   override:
     - echo 'test'
     #    - npm run test:browserstack
