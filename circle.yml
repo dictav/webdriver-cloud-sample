@@ -1,30 +1,42 @@
 machine:
   environment:
-    hello: hello, world
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
   timezone: Asia/Tokyo
 dependencies:
+  cache_directories:
+    - ~/.cache/yarn
+    - ~/bin
+  override:
+    - yarn
   post:
-    - curl -O https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
-    - unzip ngrok-stable-linux-amd64.zip
-    - chmod +x ngrok
-    - mv ngrok /home/ubuntu/bin
+    - |
+      if [ ! -e ~/bin/ngrok ]; then 
+        curl -O https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+        unzip ngrok-stable-linux-amd64.zip
+        chmod +x ngrok
+        mv ngrok ~/bin
+      fi
     - ngrok authtoken $NGROK_TOKEN
-    - curl -O http://stedolan.github.io/jq/download/linux64/jq
-    - chmod +x jq
-    - mv jq  /home/ubuntu/bin
+    - echo ~/.ngrok2/ngrok.yml
+    - |
+      if [ ! -e ~/bin/jq ]; then
+        curl -O http://stedolan.github.io/jq/download/linux64/jq
+        chmod +x jq
+        mv jq  ~/bin
+      fi
     
 test:
   pre:
-    - npm run mockserver:
+    - yarn run mockserver:
         background: true
-    - npm run ngrok:
+    - yarn run ngrok:
         background: true
     - curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels | .[] | select(.name == "host1") | .public_url' | sed -e 's,https*://,,' > host1
     - curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels | .[] | select(.name == "host2") | .public_url' | sed -e 's,https*://,,' > host2
     - curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels | .[] | select(.name == "api") | .public_url' | sed -e 's,https*://,,' > host_api
     - sleep 60
   override:
-    - npm run test:browserstack:
+    - yarn run test:browserstack:
         environment:
           HOST1: $(cat host1)
           HOST2: $(cat host2)
