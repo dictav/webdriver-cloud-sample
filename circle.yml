@@ -19,9 +19,9 @@ test:
         background: true
     - npm run ngrok:
         background: true
-    - curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels | .[] | select(.name == "host1") | .public_url | sub("https*://";"")'
-    - curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels | .[] | select(.name == "host2") | .public_url | sub("https*://";"")'
-    - curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels | .[] | select(.name == "api") | .public_url | sub("https*://";"")'
+    - curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels | .[] | select(.name == "host1") | .public_url'
+    - curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels | .[] | select(.name == "host2") | .public_url'
+    - curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels | .[] | select(.name == "api") | .public_url'
   override:
     - echo $HOST1,$HOST2,$HOST_API:
         environment:
