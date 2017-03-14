@@ -1,22 +1,12 @@
 'use strict'
 const assert = require('assert')
-const httpServer = require('http-server')
 const request = require('request')
-
-const mockServer = require('./mock_server.js').mockServer
-
-const root = 'test/public'
 
 const host1 = process.env.HOST1 || 'localhost:3000'
 const host2 = process.env.HOST2 || 'localhost:3001'
 const hostApi = process.env.HOST_API || 'localhost:3030'
 
 describe('Console Log', () => {
-  before(() => {
-    httpServer.createServer({ root }).listen(3000)
-    httpServer.createServer({ root }).listen(3001)
-    mockServer.listen(3030)
-  })
 
   it('gets the title of page1', () => {
     const title = browser.url('http://' + host1 + '/page1.html').getTitle()
