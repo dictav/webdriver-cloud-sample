@@ -23,7 +23,7 @@ test:
     - curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels | .[] | select(.name == "host2") | .public_url' | sed -e 's,https*://,,' > host2
     - curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels | .[] | select(.name == "api") | .public_url' | sed -e 's,https*://,,' > host_api
   override:
-    - echo $HOST1,$HOST2,$HOST_API:
+    - npm run test:browserstack:
         environment:
           HOST1: $(cat host1)
           HOST2: $(cat host2)
