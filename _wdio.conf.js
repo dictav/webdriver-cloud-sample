@@ -58,7 +58,7 @@ exports.config = {
     bail: 0,
     //
     // Saves a screenshot to a given path if a command fails.
-    screenshotPath: './errorShots/',
+    // screenshotPath: './errorShots/',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 30000,
