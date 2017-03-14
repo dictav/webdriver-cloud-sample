@@ -1,0 +1,16 @@
+tunnels:
+  host1:
+    proto: http
+    bind_tls: false
+    addr: 3000
+    inspect: false
+  host2:
+    proto: http
+    bind_tls: false
+    addr: 3001
+    inspect: false
+  api:
+    proto: http
+    bind_tls: false
+    addr: 3030
+    inspect: false

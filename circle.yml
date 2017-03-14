@@ -6,27 +6,25 @@ dependencies:
   post:
     - curl -O https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
     - unzip ngrok-stable-linux-amd64.zip
-    - ./ngrok authtoken $NGROK_TOKEN
     - chmod +x ngrok
+    - ngrok authtoken $NGROK_TOKEN
+    - mv ngrok bin/
     - curl -O http://stedolan.github.io/jq/download/linux64/jq
     - chmod +x jq
+    - mv jq bin/
     
 test:
   pre:
     - npm run mockserver:
         background: true
-    - ./ngrok http 3000:
+    - npm run ngrok
         background: true
-    - ./ngrok http 3001:
-        background: true
-    - ./ngrok http 3030:
-        background: true
-    - curl -s http://localhost:4040/api/tunnels
-    - curl -s http://localhost:4041/api/tunnels
-    - curl -s http://localhost:4042/api/tunnels
+    - curl -s http://localhost:4040/api/tunnels | ./jq -r '.tunnels | .[] | select(.name == "host1") | .public_url | sub("https*://";"")'
+    - curl -s http://localhost:4040/api/tunnels | ./jq -r '.tunnels | .[] | select(.name == "host2") | .public_url | sub("https*://";"")'
+    - curl -s http://localhost:4040/api/tunnels | ./jq -r '.tunnels | .[] | select(.name == "api") | .public_url | sub("https*://";"")'
   override:
     - echo $HOST1,$HOST2,$HOST_API:
         environment:
-          HOST1: $(curl -s http://localhost:4040/api/tunnels | ./jq -r '.tunnels[0].public_url' | sed -e 's,https*://,,')
-          HOST2: $(curl -s http://localhost:4041/api/tunnels | ./jq -r '.tunnels[0].public_url' | sed -e 's,https*://,,')
-          HOST_API: $(curl -s http://localhost:4042/api/tunnels | ./jq -r '.tunnels[0].public_url' | sed -e 's,https*://,,')
+          HOST1: $(curl -s http://localhost:4040/api/tunnels | ./jq -r '.tunnels | .[] | select(.name == "host1") | .public_url | sub("https*://";"")')
+          HOST2: $(curl -s http://localhost:4040/api/tunnels | ./jq -r '.tunnels | .[] | select(.name == "host2") | .public_url | sub("https*://";"")')
+          HOST_API: $(curl -s http://localhost:4040/api/tunnels | ./jq -r '.tunnels | .[] | select(.name == "api") | .public_url | sub("https*://";"")')
