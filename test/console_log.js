@@ -28,11 +28,13 @@ describe('Console Log', () => {
 
     browser.call(() => {
       return new Promise((resolve, reject) => {
-        request.get({url:'http://' + hostApi + '/last_request', timeout: 1000}, (err, res) => {
-          const data = JSON.parse(res.body)
-          assert.equal(data.method, 'GET')
-          resolve()
-        })
+        setTimeout(() => {
+          request.get({url:'http://' + hostApi + '/last_request', timeout: 1000}, (err, res) => {
+            const data = JSON.parse(res.body)
+            assert.equal(data.method, 'GET')
+            resolve()
+          })
+        }, 300)
       })
     })
   })
