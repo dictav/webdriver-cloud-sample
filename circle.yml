@@ -6,6 +6,9 @@ dependencies:
   cache_directories:
     - ~/.cache/yarn
     - ~/bin
+  pre:
+    - node --version
+    - ls ~/bin
   override:
     - yarn
   post:
