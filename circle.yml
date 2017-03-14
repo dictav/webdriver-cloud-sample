@@ -15,6 +15,7 @@ test:
         background: true
     - echo "HELLO"
     - sleep 3
+    - curl http://localhost:4040/api/tunnels
     - curl http://localhost:4040/api/tunnels | ./jp -r '.tunnels[0]'
     - export HOST1=$(curl -s http://localhost:4040/api/tunnels | ./jq -r '.tunnels[0].public_url' | sed -e 's,http://,,')
     - echo $HOST1
@@ -29,4 +30,4 @@ test:
     - export HOST_API=$(curl -s http://localhost:4042/api/tunnels | ./jq -r '.tunnels[0].public_url' | sed -e 's,http://,,')
     - echo $HOST_API
   override:
-    - npm run test:browserstack
+    #    - npm run test:browserstack
