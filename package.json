@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "webdriverio-cloud-example",
   "scripts": {
-    "ngrok": "ngrok start --config ngrok.yml host1 api",
+    "ngrok": "ngrok start --config ngrok.yml --all",
     "mockserver": "node lib/mock_server.js",
     "test": "npm run test:local",
     "test:local": "wdio wdio.conf.local.js",
