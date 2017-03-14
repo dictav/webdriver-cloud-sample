@@ -3,7 +3,7 @@ const base = require('./_wdio.conf')
 const buildId = Date.now().toString()
 
 exports.config = Object.assign(base.config, {
-  maxInstances: 2, // cloud service's limit
+  maxInstances: 1, // cloud service's limit
   capabilities: [
     {
       build:'build-' + buildId,
