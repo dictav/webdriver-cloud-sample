@@ -1,10 +1,41 @@
 'use strict'
 const assert = require('assert')
+const httpServer = require('http-server')
+const request = require('request')
+
+const mockServer = require('./mock_server.js').mockServer
+
+const root = 'test/public'
 
 describe('Console Log', () => {
-  it('gets the title of dictav.net', () => {
-    const title = browser.url('https://dictav.net').getTitle()
-    assert.equal(title, 'DICTAV')
+  before(() => {
+    httpServer.createServer({ root }).listen(3000)
+    httpServer.createServer({ root }).listen(3001)
+    mockServer.listen(3030)
+  })
+
+  it('gets the title of page1', () => {
+    const title = browser.url('http://localhost:3000/page1.html').getTitle()
+    assert.equal(title, 'DOMAIN1')
+  })
+
+  it('gets the title of page2', () => {
+    const title = browser.url('http://localhost:3001/page2.html').getTitle()
+    assert.equal(title, 'DOMAIN2')
+  })
+
+  it('send beacon', () => {
+    browser.url('http://localhost:3000/beacon.html?localhost:3030')
+
+    browser.call(() => {
+      return new Promise((resolve, reject) => {
+        request.get({url:'http://localhost:3030/last_request', timeout: 1000}, (err, res) => {
+          const data = JSON.parse(res.body)
+          assert.equal(data.method, 'GET')
+          resolve()
+        })
+      })
+    })
   })
 
   it('has no SEVERE error', () => {

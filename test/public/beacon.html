@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Beacon</title>
+</head>
+<body>
+  <img src="//localhost:3030/">
+  <script>
+    var search = window.location.search
+    var domain = search.substring(1, search.length)
+    fetch('//' + domain + '/', 'hello')
+  </script>
+</body>
+</html>
