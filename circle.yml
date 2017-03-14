@@ -1,5 +1,11 @@
 machine:
   timezone: Asia/Tokyo
+dependencies:
+  post:
+    - curl -O https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+    - unzip ngrok-stable-linux-amd64.zip
+    - ./ngrok authtoken $NGROK_TOKEN
+    - curl -O http://stedolan.github.io/jq/download/linux64/jq
     
 test:
   pre:
@@ -7,15 +13,5 @@ test:
         background: true
     - ./ngrok http 3000:
         background: true
-    - export HOST1=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url' | sed -e 's,http://,,')
-    - echo $HOST1
-    - ./ngrok http 3001:
-        background: true
-    - export HOST2=$(curl -s http://localhost:4041/api/tunnels | jq -r '.tunnels[0].public_url' | sed -e 's,http://,,')
-    - echo $HOST2
-    - ./ngrok http 3030:
-    - export HOST_API=$(curl -s http://localhost:4042/api/tunnels | jq -r '.tunnels[0].public_url' | sed -e 's,http://,,')
-        background: true
-    - echo $HOST_API
   override:
     - npm run test:browserstack
