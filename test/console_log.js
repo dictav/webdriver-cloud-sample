@@ -34,7 +34,7 @@ describe('Console Log', () => {
             assert.equal(data.method, 'GET')
             resolve()
           })
-        }, 300)
+        }, 800)
       })
     })
   })
