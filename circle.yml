@@ -13,5 +13,7 @@ test:
         background: true
     - ./ngrok http 3000:
         background: true
+    - export HOST1=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url' | sed -e 's,http://,,')
+    - echo $HOST1
   override:
     - npm run test:browserstack
