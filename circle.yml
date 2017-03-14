@@ -2,6 +2,8 @@ machine:
   environment:
     PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
   timezone: Asia/Tokyo
+  node:
+    version: 6.1.0
 dependencies:
   cache_directories:
     - ~/.cache/yarn
