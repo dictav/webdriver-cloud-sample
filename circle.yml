@@ -1,11 +1,5 @@
 machine:
   timezone: Asia/Tokyo
-dependencies:
-  post:
-    - curl -O https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
-    - unzip ngrok-stable-linux-amd64.zip
-    - ./ngrok authtoken $NGROK_TOKEN
-    - curl -O http://stedolan.github.io/jq/download/linux64/jq
     
 test:
   pre:
