@@ -21,6 +21,9 @@ test:
         background: true
     - ./ngrok http 3030:
         background: true
+    - curl -s http://localhost:4040/api/tunnels
+    - curl -s http://localhost:4041/api/tunnels
+    - curl -s http://localhost:4042/api/tunnels
   override:
     - echo $HOST1,$HOST2,$HOST_API:
         environment:
