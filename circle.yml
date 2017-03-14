@@ -22,9 +22,9 @@ test:
     - ./ngrok http 3030:
         background: true
     - sleep 3
-    - echo $HELLO:
+    - echo $HOST1:
         environment:
-          HELLO: $(echo $HOME)
+          HOST1: $(curl -s http://localhost:4040/api/tunnels | ./jq -r '.tunnels[0].public_url' | sed -e 's,http://,,')
   override:
     - echo 'test'
     #    - npm run test:browserstack
