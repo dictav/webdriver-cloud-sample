@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "webdriverio-cloud-example",
   "scripts": {
-    "test": "npm run test:local && npm run test:saucelabs && npm run test:testingbot",
+    "test": "npm run test:local",
     "test:local": "wdio wdio.conf.local.js",
     "test:browserstack": "wdio wdio.conf.browserstack.js",
     "test:saucelabs": "wdio wdio.conf.saucelabs.js",
