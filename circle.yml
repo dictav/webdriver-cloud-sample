@@ -15,7 +15,8 @@ test:
         background: true
     - ./ngrok http 3000:
         background: true
-    - echo "HELLO"
+    - export HELLO="HELLO, WORLD!"
+    - echo $HELLO
     - sleep 3
     - curl http://localhost:4040/api/tunnels | ./jq -r '.tunnels[0].public_url' | sed -e 's,http://,,'
     - export HOST1=`curl -s http://localhost:4040/api/tunnels | ./jq -r '.tunnels[0].public_url' | sed -e 's,http://,,'`
