@@ -7,6 +7,9 @@ const host2 = process.env.HOST2 || 'localhost:3001'
 const hostApi = process.env.HOST_API || 'localhost:3030'
 
 describe('Console Log', () => {
+  it('host1', () => {
+    assert.equal(host1.endsWith('ngrok.io'), 'host1 is not ngrok')
+  })
 
   it('gets the title of page1', () => {
     const title = browser.url('http://' + host1 + '/page1.html').getTitle()
