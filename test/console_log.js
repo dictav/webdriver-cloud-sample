@@ -7,9 +7,9 @@ const mockServer = require('./mock_server.js').mockServer
 
 const root = 'test/public'
 
-const domain1 = process.env.DOMAIN1 || 'localhost:3000'
-const domain2 = process.env.DOMAIN2 || 'localhost:3001'
-const domainApi = process.env.DOMAIN_API || 'localhost:3030'
+const host1 = process.env.HOST1 || 'localhost:3000'
+const host2 = process.env.HOST2 || 'localhost:3001'
+const hostApi = process.env.HOST_API || 'localhost:3030'
 
 describe('Console Log', () => {
   before(() => {
@@ -19,21 +19,21 @@ describe('Console Log', () => {
   })
 
   it('gets the title of page1', () => {
-    const title = browser.url('http://' + domain1 + '/page1.html').getTitle()
-    assert.equal(title, 'DOMAIN1')
+    const title = browser.url('http://' + host1 + '/page1.html').getTitle()
+    assert.equal(title, 'HOST1')
   })
 
   it('gets the title of page2', () => {
-    const title = browser.url('http://' + domain2 + '/page2.html').getTitle()
-    assert.equal(title, 'DOMAIN2')
+    const title = browser.url('http://' + host2 + '/page2.html').getTitle()
+    assert.equal(title, 'HOST2')
   })
 
   it('send beacon', () => {
-    browser.url('http://' + domain1 + '/beacon.html?' + domainApi)
+    browser.url('http://' + host1 + '/beacon.html?' + hostApi)
 
     browser.call(() => {
       return new Promise((resolve, reject) => {
-        request.get({url:'http://' + domainApi + '/last_request', timeout: 1000}, (err, res) => {
+        request.get({url:'http://' + hostApi + '/last_request', timeout: 1000}, (err, res) => {
           const data = JSON.parse(res.body)
           assert.equal(data.method, 'GET')
           resolve()
