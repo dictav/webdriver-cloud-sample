@@ -22,7 +22,7 @@ dependencies:
         mv ngrok ~/bin
       fi
     - ngrok authtoken $NGROK_TOKEN
-    - echo ~/.ngrok2/ngrok.yml
+    - cat ~/.ngrok2/ngrok.yml
     - |
       if [ ! -e ~/bin/jq ]; then
         curl -O http://stedolan.github.io/jq/download/linux64/jq
@@ -39,7 +39,6 @@ test:
     - curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels | .[] | select(.name == "host1") | .public_url' | sed -e 's,https*://,,' > host1
     - curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels | .[] | select(.name == "host2") | .public_url' | sed -e 's,https*://,,' > host2
     - curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels | .[] | select(.name == "api") | .public_url' | sed -e 's,https*://,,' > host_api
-    - sleep 60
   override:
     - yarn run test:browserstack:
         environment:
