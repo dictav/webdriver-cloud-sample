@@ -24,9 +24,6 @@ test:
     - sleep 3
     - echo $HELLO:
         environment:
-          HELLO: `echo $HOME`
-    - echo $HELLO:
-        environment:
           HELLO: $(echo $HOME)
   override:
     - echo 'test'
