@@ -30,7 +30,13 @@ describe('Console Log', () => {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           request.get({url:'http://' + hostApi + '/last_request', timeout: 1000}, (err, res) => {
-            const data = JSON.parse(res.body)
+            var data = res.body
+            console.log('data type', typeof data)
+            if (typeof data === 'string') {
+              assert.doesNotThrow(()=>{
+                data = JSON.parse(res.body)
+              })
+            }
             assert.equal(data.method, 'GET')
             resolve()
           })
