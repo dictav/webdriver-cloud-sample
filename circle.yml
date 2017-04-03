@@ -21,8 +21,6 @@ dependencies:
         chmod +x ngrok
         mv ngrok ~/bin
       fi
-    - ngrok authtoken $NGROK_TOKEN
-    - cat ~/.ngrok2/ngrok.yml
     - |
       if [ ! -e ~/bin/jq ]; then
         curl -O http://stedolan.github.io/jq/download/linux64/jq
