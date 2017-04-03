@@ -6,7 +6,7 @@ const host1 = process.env.HOST1 || 'localhost:3000'
 const host2 = process.env.HOST2 || 'localhost:3001'
 const hostApi = process.env.HOST_API || 'localhost:3030'
 
-describe('Console Log', () => {
+describe('Basic Test', () => {
   before(() => {
     console.log('host1', host1)
     console.log('host2', host2)
@@ -21,29 +21,6 @@ describe('Console Log', () => {
   it('gets the title of page2', () => {
     const title = browser.url('http://' + host2 + '/page2.html').getTitle()
     assert.equal(title, 'HOST2')
-  })
-
-  it('send beacon', () => {
-    browser.url('http://' + host1 + '/beacon.html?' + hostApi)
-
-    browser.call(() => {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          request.get({url:'http://' + hostApi + '/last_request', timeout: 1000}, (err, res) => {
-            var data = res.body
-            console.log('data type', typeof data)
-            if (typeof data === 'string') {
-              console.log('data', data)
-              assert.doesNotThrow(()=>{
-                data = JSON.parse(res.body)
-              })
-            }
-            assert.equal(data.method, 'GET')
-            resolve()
-          })
-        }, 800)
-      })
-    })
   })
 
   it('has no SEVERE error', () => {
