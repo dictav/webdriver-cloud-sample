@@ -25,7 +25,7 @@ describe('Beacon Test', () => {
           var url = 'http://' + hostApi + '/last_request?uuid=' + uuid
           request.get({url, timeout: 1000}, (err, res) => {
             var data = null
-            asset.doesNotThrow(() => {
+            assert.doesNotThrow(() => {
               data = JSON.parse(res.body)
             })
             assert.equal(data.method, 'GET')
@@ -47,10 +47,10 @@ describe('Beacon Test', () => {
           var url = 'http://' + hostApi + '/last_request?uuid=' + uuid
           request.get({url, timeout: 1000}, (err, res) => {
             var data = null
-            asset.doesNotThrow(() => {
+            assert.doesNotThrow(() => {
               data = JSON.parse(res.body)
             })
-            assert.equal(data.method, 'GET')
+            assert.equal(data.method, 'POST')
             resolve()
           })
         }, 800)
