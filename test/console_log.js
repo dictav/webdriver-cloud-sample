@@ -33,6 +33,7 @@ describe('Console Log', () => {
             var data = res.body
             console.log('data type', typeof data)
             if (typeof data === 'string') {
+              console.log('data', data)
               assert.doesNotThrow(()=>{
                 data = JSON.parse(res.body)
               })
