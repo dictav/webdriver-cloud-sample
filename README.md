@@ -9,8 +9,8 @@ This is e2e test sample with [WebdriverIO](https://webdriver.io) using [Sauce La
 BrowserStack is very powerful cloud-based cross-browser testing service!
 
 ```
-$ export SAUCE_USERNAME=<AUTOMATE_USERNAME>
-$ export SAUCE_ACCESS_KEY=<AUTOMATE_ACCESS_KEY>
+$ export BROWSERSTACK_USERNAME=<AUTOMATE_USERNAME>
+$ export BROWSERSTACK_ACCESS_KEY=<AUTOMATE_ACCESS_KEY>
 $ npm run test:browserstack
 ```
 
